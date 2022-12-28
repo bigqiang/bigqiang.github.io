@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+  <title>木鱼 - 念经助手</title>
+  <meta name="keywords" content="木鱼,电子木鱼app,念经助手">
+  <meta name="description" content="一起摒弃杂念，虔诚诵经，功德无量">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    .main,
+    body,
+    html {
+      height: 100%;
+      background-color: #000
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      user-select: none
+    }
+
+    .main {
+      position: relative
+    }
+
+    .outer-container {
+      width: 100%;
+      bottom: 100px;
+      top: 90px;
+      position: absolute
+    }
+
+    .container {
+      position: absolute;
+      width: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .tip {
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 50px
+    }
+
+    .tip>span {
+      position: absolute;
+      width: 100%;
+      text-align: right
+    }
+
+    .op>img {
+      width: 100%;
+      height: 100%
+    }
+
+    .ads {
+      height: 90px;
+      bottom: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .setting-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 40px;
+      padding: 20px
+    }
+
+    #count-num {
+      color: #fcc67b;
+      text-align: center;
+      width: fit-content;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 90px;
+      transform: translateX(-50%);
+      line-height: 90px;
+      font-size: 20px
+    }
+
+    .setting {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fcc67b;
+      display: none
+    }
+
+    .setting-main {
+      padding: 20px 0 20px 0
+    }
+
+    .setting-main>div.form {
+      margin: 0 0 20px 80px
+    }
+
+    .setting-comfirm {
+      text-align: center;
+      margin: 50px 0 30px 0
+    }
+
+    .setting-input input,
+    .setting-main,
+    .setting-selector {
+      font-size: 20px
+    }
+
+    .setting-input input,
+    .setting-selector {
+      height: 40px
+    }
+
+    .btn {
+      padding: .5rem 1rem;
+      font-size: 14px;
+      background: #fff;
+      color: #333;
+      border: 1px solid #adadad;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-block
+    }
+
+    .btn:hover {
+      background-color: #e6e6e6
+    }
+
+    .btn-primary {
+      background: #1890ff;
+      color: #fff;
+      border-color: transparent
+    }
+
+    .btn-primary:hover {
+      background-color: #40a9ff
+    }
+
+    .btn-plain {
+      background: 0 0;
+      color: #000;
+      border-color: transparent
+    }
+
+    #setting-comfirm-btn {
+      width: 50%;
+      padding: .8rem 1.6rem
+    }
+
+    .setting-ads {
+      height: 300px
+    }
+
+    h5 {
+      margin-bottom: 6px
+    }
+
+    @keyframes heartBeat {
+      0% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(.9)
+      }
+
+      28% {
+        transform: scale(.8)
+      }
+
+      42% {
+        transform: scale(.9)
+      }
+
+      70% {
+        transform: scale(1)
+      }
+    }
+
+    .heartBeat {
+      animation-name: heartBeat;
+      animation-duration: .2s;
+      animation-timing-function: ease
+    }
+
+    @keyframes fadeOutUp {
+      0% {
+        opacity: 1
+      }
+
+      30% {
+        opacity: 1
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0)
+      }
+    }
+
+    .fadeOutUp {
+      animation-name: fadeOutUp;
+      animation-duration: .4s;
+      animation-timing-function: ease-in
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="header">
+      <div class="setting-btn">⚙️</div>
+      <div id="count-num"><span></span></div>
+    </div>
+    <div class="outer-container">
+      <div class="container">
+        <div class="tip"></div>
+        <div class="op"><img src="./muyu.png" alt=""></div><audio src="./1.mp3" id="audio" preload="auto"></audio>
+      </div>
+    </div>
+  </div>
+  <div class="setting">
+    <div class="setting-main">
+      <div class="setting-select form">
+        <h5>切换诵读文本</h5><select id="selector" class="setting-selector">
+          <option value="选择诵读文本">选择诵读文本</option>
+          <option value="功德 +1" selected>功德 +1</option>
+          <option value="工资 +9999">工资 +9999</option>
+          <option value="钱包 +99999">钱包 +99999</option>
+          <option value="烦恼 -99999">烦恼 -99999</option>
+          <option value="逢考必过">逢考必过</option>
+          <option value="一夜暴富">一夜暴富</option>
+          <option value="变美变瘦">变美变瘦</option>
+          <option value="股票大涨">股票大涨</option>
+        </select>
+      </div>
+      <div class="setting-input form">
+        <h5>或自定义文本</h5><input type="text" id="setting-input-box">
+      </div>
+      <div class="setting-audio form">
+        <h5>切换音色</h5>
+        <div><input type="radio" id="huey" name="drone" value="1" checked> <label for="huey">音色1</label></div>
+        <div><input type="radio" id="dewey" name="drone" value="2"> <label for="dewey">音色2</label></div>
+      </div>
+      <div class="setting-count form">
+        <div><input type="checkbox" id="count-check" name="count"> <label for="count">开启功德统计</label> <button
+            class="btn btn-plain" id="clear">清空统计</button></div>
+      </div>
+      <div class="setting-comfirm"><button class="btn btn-primary" id="setting-comfirm-btn">确定</button></div>
+    </div>
+  </div>
+  <script>
+    var _0x370f = ["\u529F\u5FB7\x20\x2B\x31", "\x2E\x6F\x70", "\x2E\x74\x69\x70", "\x23\x61\x75\x64\x69\x6F", "\x23\x73\x65\x6C\x65\x63\x74\x6F\x72", "\x23\x73\x65\x74\x74\x69\x6E\x67\x2D\x69\x6E\x70\x75\x74\x2D\x62\x6F\x78", "\x2E\x73\x65\x74\x74\x69\x6E\x67\x2D\x62\x74\x6E", "\x23\x63\x6F\x75\x6E\x74\x2D\x6E\x75\x6D\x20\x73\x70\x61\x6E", "\x23\x73\x65\x74\x74\x69\x6E\x67\x2D\x63\x6F\x6D\x66\x69\x72\x6D\x2D\x62\x74\x6E", "\x2E\x73\x65\x74\x74\x69\x6E\x67", "\x2E\x6F\x75\x74\x65\x72\x2D\x63\x6F\x6E\x74\x61\x69\x6E\x65\x72", "\x2E\x73\x65\x74\x74\x69\x6E\x67\x2D\x61\x75\x64\x69\x6F\x20\x69\x6E\x70\x75\x74", "\x23\x63\x6F\x75\x6E\x74\x2D\x63\x68\x65\x63\x6B", "\x23\x63\x6C\x65\x61\x72", "\x63\x6C\x69\x63\x6B", "\x68\x65\x61\x72\x74\x42\x65\x61\x74", "\x72\x65\x6D\x6F\x76\x65", "\x63\x6C\x61\x73\x73\x4C\x69\x73\x74", "\x6C\x6F\x61\x64", "\x70\x6C\x61\x79", "\x61\x64\x64", "\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72", "\x63\x68\x61\x6E\x67\x65", "\x76\x61\x6C\x75\x65", "\x74\x61\x72\x67\x65\x74", "\x63\x6F\x75\x6E\x74\x43\x68\x65\x63\x6B\x65\x64", "\x66\x61\x6C\x73\x65", "\x63\x68\x65\x63\x6B\x65\x64", "\x64\x69\x73\x70\x6C\x61\x79", "\x73\x74\x79\x6C\x65", "\x6E\x6F\x6E\x65", "\x74\x72\x75\x65", "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B", "\x62\x6C\x6F\x63\x6B", "\x6D\x75\x79\x75\x43\x6F\x75\x6E\x74", "\x69\x6E\x6E\x65\x72\x54\x65\x78\x74", "\x73\x72\x63", "\x2E\x2F", "\x2E\x6D\x70\x33", "\x66\x6F\x72\x45\x61\x63\x68", "\x68\x6F\x73\x74\x6E\x61\x6D\x65", "\x6C\x77\x65\x62\x61\x70\x70\x2E\x63\x6F\x6D", "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6D\x70\x2E\x77\x65\x69\x78\x69\x6E\x2E\x71\x71\x2E\x63\x6F\x6D\x2F\x73\x2F\x53\x48\x6E\x74\x30\x5F\x30\x46\x34\x4A\x58\x30\x4F\x35\x52\x5F\x71\x38\x59\x53\x7A\x77", "\x72\x65\x70\x6C\x61\x63\x65", "\x72\x61\x6E\x64\x6F\x6D", "\x66\x6C\x6F\x6F\x72", "\x74\x6F\x4C\x6F\x77\x65\x72\x43\x61\x73\x65", "\x75\x73\x65\x72\x41\x67\x65\x6E\x74", "\x6E\x61\x76\x69\x67\x61\x74\x6F\x72", "\x6D\x61\x74\x63\x68", "\x6D\x69\x63\x72\x6F\x6D\x65\x73\x73\x65\x6E\x67\x65\x72", "\x74\x78\x74", "", "\u9009\u62E9\u8BF5\u8BFB\u6587\u672C", "\x73\x70\x61\x6E", "\x63\x72\x65\x61\x74\x65\x45\x6C\x65\x6D\x65\x6E\x74", "\x61\x6E\x69\x6D\x61\x74\x65\x5F\x5F\x61\x6E\x69\x6D\x61\x74\x65\x64", "\x66\x61\x64\x65\x4F\x75\x74\x55\x70", "\x61\x70\x70\x65\x6E\x64\x43\x68\x69\x6C\x64", "\x72\x65\x6D\x6F\x76\x65\x43\x68\x69\x6C\x64", "\x71\x75\x65\x72\x79\x53\x65\x6C\x65\x63\x74\x6F\x72\x41\x6C\x6C", "\x6C\x65\x6E\x67\x74\x68", "\x63\x61\x6C\x6C", "\x73\x6C\x69\x63\x65", "\x70\x72\x6F\x74\x6F\x74\x79\x70\x65", "\x67\x65\x74\x49\x74\x65\x6D", "\x73\x65\x74\x49\x74\x65\x6D"];
+    var store = { txt: _0x370f[0] };
+    var op = $$(_0x370f[1]); 
+    var tip = $$(_0x370f[2]); 
+    var audio = $$(_0x370f[3]); 
+    var selector = $$(_0x370f[4]); 
+    var ipnutBox = $$(_0x370f[5]); 
+    var btnSetting = $$(_0x370f[6]); 
+    var countNum = $$(_0x370f[7]);
+    var btnComfirm = $$(_0x370f[8]); 
+    var settingModal = $$(_0x370f[9]); 
+    var outerContainer = $$(_0x370f[10]); 
+    var audioInputs = $$(_0x370f[11]); 
+    var countCheck = $$(_0x370f[12]); 
+    var clear = $$(_0x370f[13]); 
+    var timer = null; 
+    outerContainer[_0x370f[21]](_0x370f[14], () => { tipAnimate(); if (timer) { clearTimeout(timer); timer = null; op[_0x370f[17]][_0x370f[16]](_0x370f[15]) }; audio[_0x370f[18]](); audio[_0x370f[19]](); op[_0x370f[17]][_0x370f[20]](_0x370f[15]); timer = setTimeout(() => { op[_0x370f[17]][_0x370f[16]](_0x370f[15]) }, 200); updateCount() }); selector[_0x370f[21]](_0x370f[22], (_0x2322x10) => { setTxt(_0x2322x10[_0x370f[24]][_0x370f[23]]) }); ipnutBox[_0x370f[21]](_0x370f[22], (_0x2322x10) => { setTxt(_0x2322x10[_0x370f[24]][_0x370f[23]]) }); linkTo(); var checked = getItem(_0x370f[25]); if (!checked || checked === _0x370f[26]) { countCheck[_0x370f[27]] = false; countNum[_0x370f[29]][_0x370f[28]] = _0x370f[30] } else { if (checked === _0x370f[31]) { countCheck[_0x370f[27]] = true; countNum[_0x370f[29]][_0x370f[28]] = _0x370f[32]; openCount() } }; countCheck[_0x370f[21]](_0x370f[22], (_0x2322x10) => { setItem(_0x370f[25], _0x2322x10[_0x370f[24]][_0x370f[27]]); countNum[_0x370f[29]][_0x370f[28]] = _0x2322x10[_0x370f[24]][_0x370f[27]] ? _0x370f[32] : _0x370f[30]; openCount() }); btnComfirm[_0x370f[21]](_0x370f[14], (_0x2322x10) => { settingModal[_0x370f[29]][_0x370f[28]] = _0x370f[30] }); btnSetting[_0x370f[21]](_0x370f[14], (_0x2322x10) => { settingModal[_0x370f[29]][_0x370f[28]] = _0x370f[33] }); clear[_0x370f[21]](_0x370f[14], (_0x2322x10) => { var _0x2322x12 = 0; setItem(_0x370f[34], _0x2322x12); countNum[_0x370f[35]] = _0x2322x12 }); audioInputs[_0x370f[39]]((_0x2322x13) => { _0x2322x13[_0x370f[21]](_0x370f[22], (_0x2322x10) => { audio[_0x370f[36]] = _0x370f[37] + _0x2322x10[_0x370f[24]][_0x370f[23]] + _0x370f[38]; audio[_0x370f[18]](); audio[_0x370f[19]]() }) }); 
+    function openCount() { var _0x2322x12 = getItem(_0x370f[34]) || 0; setItem(_0x370f[34], _0x2322x12); countNum[_0x370f[35]] = _0x2322x12 } 
+    function updateCount() { var _0x2322x16 = getItem(_0x370f[25]); if (_0x2322x16 === _0x370f[31]) { var _0x2322x12 = getItem(_0x370f[34]) || 0; setItem(_0x370f[34], ++_0x2322x12); countNum[_0x370f[35]] = _0x2322x12 } } 
+    function linkTo() { if (location[_0x370f[40]] !== _0x370f[41] && isWeiXin() && randomNum(0, 10) === 5) { location[_0x370f[43]](_0x370f[42]) } } 
+    function randomNum(_0x2322x19, _0x2322x1a) { return Math[_0x370f[45]](Math[_0x370f[44]]() * (_0x2322x1a - _0x2322x19)) + _0x2322x19 } 
+    function isWeiXin() { var _0x2322x1c = window[_0x370f[48]][_0x370f[47]][_0x370f[46]](); if (_0x2322x1c[_0x370f[49]](/MicroMessenger/i) == _0x370f[50]) { return true } else { return false } } 
+    function setTxt(_0x2322x1e) { store[_0x370f[51]] = _0x2322x1e; if (store[_0x370f[51]] === _0x370f[52] || store[_0x370f[51]] === _0x370f[53]) { store[_0x370f[51]] = _0x370f[0] } } 
+    function tipAnimate() { var _0x2322x20 = document[_0x370f[55]](_0x370f[54]); _0x2322x20[_0x370f[17]][_0x370f[20]](_0x370f[56]); _0x2322x20[_0x370f[17]][_0x370f[20]](_0x370f[57]); _0x2322x20[_0x370f[35]] = store[_0x370f[51]]; tip[_0x370f[58]](_0x2322x20); setTimeout(() => { tip[_0x370f[59]](_0x2322x20) }, 400) } 
+    function $$(selector, _0x2322x22) { _0x2322x22 = _0x2322x22 || document; var _0x2322x23 = _0x2322x22[_0x370f[60]](selector); return _0x2322x23[_0x370f[61]] == 1 ? Array[_0x370f[64]][_0x370f[63]][_0x370f[62]](_0x2322x23)[0] : Array[_0x370f[64]][_0x370f[63]][_0x370f[62]](_0x2322x23) } 
+    function getItem(_0x2322x25) { return localStorage[_0x370f[65]](_0x2322x25) } 
+    function setItem(_0x2322x25, _0x2322x1e) { return localStorage[_0x370f[66]](_0x2322x25, _0x2322x1e) }
+  </script>
+</body>
+
+</html>
